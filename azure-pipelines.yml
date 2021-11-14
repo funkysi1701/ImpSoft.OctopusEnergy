@@ -14,7 +14,21 @@ steps:
   inputs:
     command: 'restore'
     feedsToUse: 'select'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     arguments: '--configuration Release --no-restore'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '2c2a6a60-448c-4153-a1be-d2ce39bfbb0d'
