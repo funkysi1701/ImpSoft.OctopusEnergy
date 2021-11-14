@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>3.0.1</Version>
+		<Version>3.0.3</Version>
 		<Authors>Philip Lee</Authors>
 		<Company>ImpSoft</Company>
 		<Product>Octopus Energy API wrapper</Product>
@@ -23,7 +23,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
+		<PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
 		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
 	</ItemGroup>
 
