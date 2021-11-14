@@ -13,6 +13,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
+    projects: 'ImpSoft.OctopusEnergy.Api/ImpSoft.OctopusEnergy.Api.csproj'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
@@ -23,7 +24,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/*.csproj'
+    packagesToPack: 'ImpSoft.OctopusEnergy.Api/ImpSoft.OctopusEnergy.Api.csproj'
     versioningScheme: 'off'
 
 - task: DotNetCoreCLI@2
