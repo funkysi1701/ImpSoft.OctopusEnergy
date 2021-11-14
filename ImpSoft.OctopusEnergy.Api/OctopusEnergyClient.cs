@@ -198,7 +198,6 @@ namespace ImpSoft.OctopusEnergy.Api
                 .AddQueryParam("period_to", to);
         }
 
-        private static int MaxConsumptionPageSize { get; } = 65000;
         private static int MaxTariffsPageSize { get; } = 1500;
 
         private HttpClient Client { get; }
@@ -218,7 +217,6 @@ namespace ImpSoft.OctopusEnergy.Api
 
             return new Uri($"{BaseUrl}/v1/electricity-meter-points/{mpan}/meters/{serialNumber}/consumption/")
                 .AddQueryParam(interval)
-                .AddQueryParam("page_size", MaxConsumptionPageSize)
                 .AddQueryParam("period_from", from)
                 .AddQueryParam("period_to", to);
         }
@@ -238,7 +236,6 @@ namespace ImpSoft.OctopusEnergy.Api
 
             return new Uri($"{BaseUrl}/v1/gas-meter-points/{mprn}/meters/{serialNumber}/consumption/")
                 .AddQueryParam(interval)
-                .AddQueryParam("page_size", MaxConsumptionPageSize)
                 .AddQueryParam("period_from", from)
                 .AddQueryParam("period_to", to);
         }
@@ -255,9 +252,13 @@ namespace ImpSoft.OctopusEnergy.Api
 
                 var response = await GetAsync<PagedResults<TResult>>(uri, apiKey);
 
-                results = results.Concat(response.Results ?? Enumerable.Empty<TResult>());
+                if (pages < 3)
+                {
+                    uri = string.IsNullOrEmpty(response.Next) ? null : new Uri(response.Next);
+                }
+                else uri = null;
 
-                uri = string.IsNullOrEmpty(response.Next) ? null : new Uri(response.Next);
+                results = results.Concat(response.Results ?? Enumerable.Empty<TResult>());
             }
 
             Debug.WriteLine($"Pages fetched: {pages}");
