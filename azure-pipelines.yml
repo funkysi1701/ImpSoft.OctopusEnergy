@@ -27,6 +27,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: 'ImpSoft.OctopusEnergy.Api/ImpSoft.OctopusEnergy.Api.csproj'
+    configuration: 'Release'
     versioningScheme: 'off'
 
 - task: DotNetCoreCLI@2
